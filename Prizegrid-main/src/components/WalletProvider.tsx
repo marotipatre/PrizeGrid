@@ -9,7 +9,7 @@ import { AptosWalletAdapterProvider } from "@aptos-labs/wallet-adapter-react";
 // import { TrustWallet } from "@trustwallet/aptos-wallet-adapter";
 // import { FewchaWallet } from "fewcha-plugin-wallet-adapter";
 import { PropsWithChildren } from "react";
-// import { Network } from "@aptos-labs/ts-sdk";
+import { Network } from "@aptos-labs/ts-sdk";
 import { useAutoConnect } from "./AutoConnectProvider";
 import { useToast } from "./ui/use-toast";
 

@@ -1,6 +1,6 @@
 "use client";
 import Link from "next/link";
-// import "@aptos-labs/wallet-adapter-ant-design/dist/index.css";
+import "@aptos-labs/wallet-adapter-ant-design/dist/index.css";
 import Image from "next/image";
 // import {
 //   Menu,
@@ -18,7 +18,7 @@ const Navbar = () => {
     { href: "/bounty", label: "Bounty" },
     { href: "/hunter/job-board", label: "Job Board" },
     { href: "/hunter/micro-grant", label: "Micro Grant" },
-    { href: "/swap", label: "Swap" },
+    // { href: "/swap", label: "Swap" },
     { href: "/get-in-touch", label: "Get In Touch" },
   ];
 
@@ -34,7 +34,7 @@ const Navbar = () => {
               <span className="mx-auto text-xl font-black leading-none text-gray-900 select-none">
                 <Image
                   src={
-                    "https://res.cloudinary.com/dm6aa7jlg/image/upload/v1724954954/Twitter_profile_gigster_ymobek.png"
+                    "https://res.cloudinary.com/dmebegin1/image/upload/v1732649956/Untitled_design_5_p74g6w.png"
                   }
                   alt=""
                   height={50}

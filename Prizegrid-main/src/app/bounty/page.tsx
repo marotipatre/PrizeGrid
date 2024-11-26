@@ -8,11 +8,13 @@ import Loading from "@/components/Loading";
 import { toast } from "@/components/ui/use-toast";
 import { useUser } from "@/context/UserContext";
 import { useBounties, useBountiesCount, useUserType } from "@/hooks/hooks";
+import { useWallet } from "@aptos-labs/wallet-adapter-react";
 // import { useToast } from "@chakra-ui/react";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 export default function Dashboard() {
+  const { account } = useWallet();
   const router = useRouter();
   // const toast = useToast();
 

@@ -9,7 +9,7 @@ import {
   useState,
 } from "react";
 
-const AUTO_CONNECT_LOCAL_STORAGE_KEY = "AlgorandWalletAutoConnect";
+const AUTO_CONNECT_LOCAL_STORAGE_KEY = "AptosWalletAutoConnect";
 
 export interface AutoConnectContextState {
   autoConnect: boolean;

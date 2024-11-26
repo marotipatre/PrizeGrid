@@ -3,7 +3,7 @@
 // import { Button, FormControl, FormLabel, Input } from "@chakra-ui/react";
 import Footer from "@/components/_navbar/Footer";
 import Navbar from "@/components/_navbar/Navbar";
-
+import { useWallet } from "@aptos-labs/wallet-adapter-react";
 import { useRouter } from "next/navigation";
 // import { useToast } from '@chakra-ui/react'
 import { useState } from "react";
@@ -83,7 +83,7 @@ export default function BecomeHunter() {
       <div className="w-screen h-screen mt-24 flex justify-center items-center ">
         <div className="w-[600px] flex justify-center items-center flex-col rounded-xl">
           <span className="text-slate-800 text-xl font-bold text-center p-2">
-            Welcome to PRIZEGRID
+            Welcome to Move club
           </span>
           <form
             className="flex justify-center items-start flex-col shadow-md mt-4 w-full p-6"

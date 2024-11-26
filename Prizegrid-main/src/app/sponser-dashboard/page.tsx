@@ -7,7 +7,7 @@ import Navbar2 from "@/components/_navbar/NavbarSponser";
 import Loading from "@/components/Loading";
 import { useUser } from "@/context/UserContext";
 import { useBounties, useBountiesCount, useUserType } from "@/hooks/hooks";
-// import { useWallet } from "@aptos-labs/wallet-adapter-react";
+import { useWallet } from "@aptos-labs/wallet-adapter-react";
 // import { useToast } from "@chakra-ui/react";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";

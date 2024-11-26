@@ -5,9 +5,13 @@ import ProjectCard from "@/components/_projects/project-card";
 import ProjectList from "@/components/_projects/ProjectList";
 import { useEffect, useState } from "react";
 import { useUser } from "@/context/UserContext";
-
+import {
+  InputTransactionData,
+  useWallet,
+} from "@aptos-labs/wallet-adapter-react";
 import { useRouter } from "next/navigation";
-
+import { Network, Provider } from "aptos";
+import "@aptos-labs/wallet-adapter-ant-design/dist/index.css";
 import DistributeBounty from "@/components/_bounty/DistributeBounty";
 import WinnerList from "@/components/winner_list/WinnerList";
 

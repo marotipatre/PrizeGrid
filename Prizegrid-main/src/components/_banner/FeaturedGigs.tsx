@@ -20,7 +20,7 @@ export default function FeaturedGigs() {
                             <h1 className="text-slate-800 text-xl my-2">Aptos Twitter Thread</h1>
                             <h2 className="text-slate-600 text-base my-2 mb-4">by - Aptos</h2>
                             <div className="w-full bg-slate-200 rounded-lg p-2 flex justify-center items-center my-2">
-                            
+                                <Image className="rounded " src={'https://res.cloudinary.com/dmebegin1/image/upload/v1732649956/Untitled_design_5_p74g6w.png'} alt="" width={50} height={50} />
                             </div>
                             <h1 className="text-slate-900 text-2xl text-center mt-6 mb-4">100 APT</h1>
                         </div>
@@ -30,7 +30,7 @@ export default function FeaturedGigs() {
                             <h1 className="text-slate-800 text-xl my-2">Aptos Cellana Thread</h1>
                             <h2 className="text-slate-600 text-base my-2 mb-4">by - Aptos</h2>
                             <div className="w-full bg-slate-200 rounded-lg p-2 flex justify-center items-center my-2">
-                               
+                                <Image className="rounded " src={'https://res.cloudinary.com/dmebegin1/image/upload/v1732649956/Untitled_design_5_p74g6w.png'} alt="" width={50} height={50} />
                             </div>
                             <h1 className="text-slate-900 text-2xl text-center mt-6 mb-4">50 APT</h1>
                         </div>
@@ -40,7 +40,7 @@ export default function FeaturedGigs() {
                             <h1 className="text-slate-800 text-xl my-2">Aptos Stan Thread</h1>
                             <h2 className="text-slate-600 text-base my-2 mb-4">by - Aptos</h2>
                             <div className="w-full bg-slate-200 rounded-lg p-2 flex justify-center items-center my-2">
-                              
+                                <Image className="rounded " src={'https://res.cloudinary.com/dmebegin1/image/upload/v1732649956/Untitled_design_5_p74g6w.png'} alt="" width={50} height={50} />
                             </div>
                             <h1 className="text-slate-900 text-2xl text-center mt-6 mb-4">200 APT</h1>
                         </div>

@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import Footer from "@/components/_navbar/Footer";
 import Navbar from "@/components/_navbar/Navbar";
+import { useWallet } from "@aptos-labs/wallet-adapter-react";
 import { useRouter } from "next/navigation";
 import { useToast } from "@/components/ui/use-toast";
 
@@ -71,7 +72,7 @@ export default function BecomeSponser() {
       <div className="w-full h-[85vh] mt-24 flex justify-center items-center">
         <div className="w-[600px] flex justify-center items-center flex-col rounded-xl">
           <span className="text-slate-800 text-xl font-bold text-center p-2">
-            Welcome to PrizeGrid
+            Welcome to Move club
           </span>
           <form
             onSubmit={handleSubmit}

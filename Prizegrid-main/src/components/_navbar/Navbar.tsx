@@ -1,7 +1,7 @@
 'use client';
 import Link from 'next/link';
 import React from 'react';
-// import "@aptos-labs/wallet-adapter-ant-design/dist/index.css";
+import "@aptos-labs/wallet-adapter-ant-design/dist/index.css";
 import Image from 'next/image';
 import { WalletSelector } from '../WalletSelector';
 
@@ -13,7 +13,7 @@ const Navbar = () => {
         <div className="relative flex flex-row md:flex-row">
             <Link href="/" className="flex items-center mb-5 font-medium text-gray-900 lg:w-auto lg:items-center lg:justify-center md:mb-0">
               <span className="mx-auto text-xl font-black leading-none text-gray-900 select-none">
-                <Image src={'https://res.cloudinary.com/dm6aa7jlg/image/upload/v1724954954/Twitter_profile_gigster_ymobek.png'} alt='' height={50} width={50} />
+                <Image src={'https://res.cloudinary.com/dmebegin1/image/upload/v1732649956/Untitled_design_5_p74g6w.png'} alt='' height={50} width={50} />
                 {/* <span className="text-indigo-600">.</span> */}
               </span>
             </Link>
@@ -30,7 +30,7 @@ const Navbar = () => {
                 Feature Gigs
               </a> */}
 
-              <Link href="/swap" className="mr-5 font-medium leading-6 text-gray-600 hover:text-gray-900">
+              <Link href="" className="mr-5 font-medium leading-6 text-gray-600 hover:text-gray-900">
                 Swap
               </Link>
               {/* <a href="#" className="mr-5 font-medium leading-6 text-gray-600 hover:text-gray-900">

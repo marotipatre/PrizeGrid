@@ -5,6 +5,7 @@ import ReactMarkdown from "react-markdown";
 import remarkParse from "remark-parse";
 import remarkStringify, { Options } from "remark-stringify";
 import remarkGfm from "remark-gfm"; // To handle GFM features like lists
+import { useWallet } from "@aptos-labs/wallet-adapter-react";
 import { useRouter } from "next/navigation";
 import { useToast } from "@/components/ui/use-toast";
 import rehypeRaw from "rehype-raw";
@@ -52,7 +53,7 @@ export default function CreateGig() {
     if (account === null) {
       toast({
         title: "Wallet connection required.",
-        description: "You need to connect algorand wallet",
+        description: "You need to connect aptos wallet",
       });
       return;
     }

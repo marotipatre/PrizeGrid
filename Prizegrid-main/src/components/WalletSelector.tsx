@@ -1,19 +1,19 @@
 "use client";
 
-// import {
-//   APTOS_CONNECT_ACCOUNT_URL,
-//   AboutAptosConnect,
-//   AboutAptosConnectEducationScreen,
-//   AnyAptosWallet,
-//   AptosPrivacyPolicy,
-//   WalletItem,
-//   WalletSortingOptions,
-//   groupAndSortWallets,
-//   isAptosConnectWallet,
-//   isInstallRequired,
-//   truncateAddress,
-//   useWallet,
-// } from "@aptos-labs/wallet-adapter-react";
+import {
+  APTOS_CONNECT_ACCOUNT_URL,
+  AboutAptosConnect,
+  AboutAptosConnectEducationScreen,
+  AnyAptosWallet,
+  AptosPrivacyPolicy,
+  WalletItem,
+  WalletSortingOptions,
+  groupAndSortWallets,
+  isAptosConnectWallet,
+  isInstallRequired,
+  truncateAddress,
+  useWallet,
+} from "@aptos-labs/wallet-adapter-react";
 import {
   ArrowLeft,
   ArrowRight,

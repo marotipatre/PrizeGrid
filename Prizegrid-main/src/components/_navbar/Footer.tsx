@@ -8,7 +8,8 @@ export default function Footer() {
       <div className="container flex flex-col items-center px-8 py-8 mx-auto max-w-7xl sm:flex-row">
             <Link href="/" className="flex items-center mb-5 font-medium text-gray-900 lg:w-auto lg:items-center lg:justify-center md:mb-0">
               <span className="mx-auto text-xl font-black leading-none text-gray-900 select-none">
-                PRIZEGRID
+                <Image src={'https://res.cloudinary.com/dm6aa7jlg/image/upload/v1724954674/Twitter_profile_gigster_n5zlmx.png'} alt='' height={60} width={60} />
+                {/* <span className="text-indigo-600">.</span> */}
               </span>
             </Link>
         

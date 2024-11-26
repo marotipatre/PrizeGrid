@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link";
 import React from "react";
-// import { WalletSelector } from "@aptos-labs/wallet-adapter-ant-design";
+import { WalletSelector } from "@aptos-labs/wallet-adapter-ant-design";
 import "@aptos-labs/wallet-adapter-ant-design/dist/index.css";
 import Image from "next/image";
 import { WalletSelector as ShadcnWalletSelector } from "@/components/WalletSelector";
@@ -13,7 +13,7 @@ const Navbar2 = () => {
   const navItems = [
     { href: "/bounty", label: "My Bounty" },
     { href: "/sponser/create-gig", label: "Create Gig" },
-    { href: "/swap", label: "Swap" },
+    // { href: "/swap", label: "Swap" },
     { href: "/get-in-touch", label: "Get In Touch" },
   ];
 
@@ -29,7 +29,7 @@ const Navbar2 = () => {
               <span className="mx-auto text-xl font-black leading-none text-gray-900 select-none">
                 <Image
                   src={
-                    "https://res.cloudinary.com/dm6aa7jlg/image/upload/v1724954954/Twitter_profile_gigster_ymobek.png"
+                    "https://res.cloudinary.com/dmebegin1/image/upload/v1732649956/Untitled_design_5_p74g6w.png"
                   }
                   alt=""
                   height={50}

@@ -23,7 +23,7 @@ export default function FAQs() {
                     </AccordionContent>
                 </AccordionItem>
                 <AccordionItem value="item-2">
-                    <AccordionTrigger>Why particularly on the Algorand Blockchain?</AccordionTrigger>
+                    <AccordionTrigger>Why does the platform use the Aptos blockchain?</AccordionTrigger>
                     <AccordionContent>
                         Aptos offers superior speed and scalability compared to many other blockchain networks, allowing for faster transactions and a better user experience, especially for a mass consumer base.
                     </AccordionContent>
