@@ -23,27 +23,27 @@ export default function FAQs() {
                     </AccordionContent>
                 </AccordionItem>
                 <AccordionItem value="item-2">
-                    <AccordionTrigger>Why does the platform use the Aptos blockchain?</AccordionTrigger>
+                    <AccordionTrigger>Why on Algorand?</AccordionTrigger>
                     <AccordionContent>
-                        Aptos offers superior speed and scalability compared to many other blockchain networks, allowing for faster transactions and a better user experience, especially for a mass consumer base.
+                        Algorrand offers superior speed and scalability compared to many other blockchain networks, allowing for faster transactions and a better user experience, especially for a mass consumer base. New projects are coming into the ecosystem every day, and we want to be a part of that growth.
                     </AccordionContent>
                 </AccordionItem>
                 <AccordionItem value="item-3">
                     <AccordionTrigger>How is this different from other bounty platforms?</AccordionTrigger>
                     <AccordionContent>
-                        We leverage the Aptos blockchain for faster, more secure transactions. Our platform also includes built-in task verification and transparent reward distribution, ensuring efficiency and trust for both project owners and freelancers.
+                        DAO centric approach where organisations can post bountiees and review & rewards the submissions decentralizedly.
                     </AccordionContent>
                 </AccordionItem>
                 <AccordionItem value="item-4">
                     <AccordionTrigger>How do I fund a job or bounty?</AccordionTrigger>
                     <AccordionContent>
-                        After creating your hunter profile, you can browse available jobs/bounties in the dashboard section. Use filters to find tasks that match your skills and interests.
+                        After creating your builder/creator profile, you can browse available jobs/bounties in the dashboard section. Use filters to find tasks that match your skills and interests.
                     </AccordionContent>
                 </AccordionItem>
                 <AccordionItem value="item-5">
                     <AccordionTrigger>How do I find jobs or bounties?</AccordionTrigger>
                     <AccordionContent>
-                        Once you complete a task and its verified by the project owner, the reward is transferred by bounty owner to your Aptos wallet address associated with your account.
+                        Once you complete a task and its verified by the project owner, the reward is transferred by a bounty owner to your Algo wallet address associated with your account.
                     </AccordionContent>
                 </AccordionItem>
             </Accordion>
