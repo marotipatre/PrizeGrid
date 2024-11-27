@@ -56,6 +56,13 @@ body-parser@1.20.0:
     type-is "~1.6.18"
     unpipe "1.0.0"
 
+boom@7.x.x:
+  version "7.3.0"
+  resolved "https://registry.npmjs.org/boom/-/boom-7.3.0.tgz"
+  integrity sha512-Swpoyi2t5+GhOEGw8rEsKvTxFLIDiiKoUc2gsoV6Lyr43LHBIzch3k2MvYUs8RTROrIkVJ3Al0TkaOGjnb+B6A==
+  dependencies:
+    hoek "6.x.x"
+
 bson@^4.6.5, bson@^4.7.0:
   version "4.7.0"
   resolved "https://registry.npmjs.org/bson/-/bson-4.7.0.tgz"
@@ -131,6 +138,13 @@ cors@^2.8.5:
   dependencies:
     object-assign "^4"
     vary "^1"
+
+cryptiles@^4.1.2:
+  version "4.1.3"
+  resolved "https://registry.npmjs.org/cryptiles/-/cryptiles-4.1.3.tgz"
+  integrity sha512-gT9nyTMSUC1JnziQpPbxKGBbUg8VL7Zn2NB4E1cJYvuXdElHrwxrV9bmltZGDzet45zSDGyYceueke1TjynGzw==
+  dependencies:
+    boom "7.x.x"
 
 debug@2.6.9:
   version "2.6.9"
@@ -272,6 +286,11 @@ has@^1.0.3:
   dependencies:
     function-bind "^1.1.1"
 
+hoek@6.x.x:
+  version "6.1.3"
+  resolved "https://registry.npmjs.org/hoek/-/hoek-6.1.3.tgz"
+  integrity sha512-YXXAAhmF9zpQbC7LEcREFtXfGq5K1fmd+4PHkBq8NUqmzW3G+Dq10bI/i0KucLRwss3YYFQ0fSfoxBZYiGUqtQ==
+
 http-errors@2.0.0:
   version "2.0.0"
   resolved "https://registry.npmjs.org/http-errors/-/http-errors-2.0.0.tgz"
@@ -372,7 +391,15 @@ mongodb@4.9.1:
   optionalDependencies:
     saslprep "^1.0.3"
 
-mongoose@^6.3.5:
+mongoose-type-url@^2.1.0:
+  version "2.1.0"
+  resolved "https://registry.npmjs.org/mongoose-type-url/-/mongoose-type-url-2.1.0.tgz"
+  integrity sha512-mLzk+yTbPOU+xTjkMW53fGrnxD+NWfVJK6oOKrskceS7G/0A5MvI8p1sPv6elwZvZUN9HeCGquWOnjFsiQ7d5Q==
+  dependencies:
+    cryptiles "^4.1.2"
+    normalize-url "^5.0.0"
+
+mongoose@*, mongoose@^6.3.5:
   version "6.6.5"
   resolved "https://registry.npmjs.org/mongoose/-/mongoose-6.6.5.tgz"
   integrity sha512-iA/oDpWOc+K2QYzA4Eq7Z1oUBQOz9FGDmUwPLgw872Bfs/qizA5Db+gJorAn+TnnGu3VoCK8iP4Y+TECUelwjA==
@@ -428,6 +455,11 @@ node@^17.7.2:
   integrity sha512-1hLwQfuA39nUDxCTwKqS8l27E9OEzfAdK5xU4Wcr3h2FrQao6qWNnurgWn4GJn9g6tfHuuupyrBl1lvMLNnecw==
   dependencies:
     node-bin-setup "^1.0.0"
+
+normalize-url@^5.0.0:
+  version "5.3.1"
+  resolved "https://registry.npmjs.org/normalize-url/-/normalize-url-5.3.1.tgz"
+  integrity sha512-K1c7+vaAP+Yh5bOGmA10PGPpp+6h7WZrl7GwqKhUflBc9flU9pzG27DDeB9+iuhZkE3BJZOcgN1P/2sS5pqrWw==
 
 object-assign@^4:
   version "4.1.1"

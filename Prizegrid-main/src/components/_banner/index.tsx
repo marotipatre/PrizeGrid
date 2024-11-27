@@ -71,10 +71,10 @@ const Banner = () => {
                     </p>
                     <a href="#" className="flex justify-center items-center">
                       <Image
-                        src="/images/algorand.png"
+                        src="https://res.cloudinary.com/dmebegin1/image/upload/v1732737075/qpmyhnoapwgppl0bjd3z.png"
                         alt=""
-                        width={50}
-                        height={50}
+                        width={75}
+                        height={75}
                         className="flex-shrink-0 rounded-full"
                       />
                       <p className="px-2 font-bold">ALGORAND</p>

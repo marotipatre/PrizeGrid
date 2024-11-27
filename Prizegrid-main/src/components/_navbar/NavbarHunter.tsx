@@ -18,7 +18,6 @@ const Navbar = () => {
     { href: "/bounty", label: "Bounty" },
     { href: "/hunter/job-board", label: "Job Board" },
     { href: "/hunter/micro-grant", label: "Micro Grant" },
-    // { href: "/swap", label: "Swap" },
     { href: "/get-in-touch", label: "Get In Touch" },
   ];
 

@@ -41,9 +41,11 @@ export default function CreateGig() {
   });
 
   const handleChange = (e: any) => {
+    const { name, value } = e.target;
+    console.log(`Field changed: ${name}, New value: ${value}`);
     setFormData({
       ...formData,
-      [e.target.name]: e.target.value,
+      [name]: value,
     });
   };
 
@@ -53,7 +55,7 @@ export default function CreateGig() {
     if (account === null) {
       toast({
         title: "Wallet connection required.",
-        description: "You need to connect aptos wallet",
+        description: "You need to connect algo/pera wallet",
       });
       return;
     }
@@ -83,6 +85,7 @@ export default function CreateGig() {
 
     try {
       formData.walletAddress = account?.address;
+      console.log('Form Data before submission:', formData); // Log form data before submission
       const response = await fetch(`${BASE_URL}/api/create_bounty`, {
         method: "POST",
         headers: {
@@ -152,7 +155,7 @@ export default function CreateGig() {
             value={formData.type}
             onChange={handleChange}
           >
-            <option value="Contest">Contest</option>
+            <option value="Content">Content</option>
             <option value="Event">Event</option>
             <option value="Tech">Tech</option>
           </select>
@@ -263,7 +266,6 @@ export default function CreateGig() {
               </ReactMarkdown>
             </div>
           </div>
-
 
           <div className="flex flex-col w-full mr-2 mt-4">
             <label className="text-base text-slate-700 mb-2 ml-1">

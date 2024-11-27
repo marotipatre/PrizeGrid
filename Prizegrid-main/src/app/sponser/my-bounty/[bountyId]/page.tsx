@@ -2,6 +2,7 @@
 import ReactMarkdown from "react-markdown";
 import Image from "next/image";
 import ProjectCard from "@/components/_projects/project-card";
+import { formatDateToDDMMYYYYHM } from "@/components/formatDateToDDMMYYYYHM/formatDateToDDMMYYYYHM";
 import ProjectList from "@/components/_projects/ProjectList";
 import { useEffect, useState } from "react";
 import { useUser } from "@/context/UserContext";
@@ -96,6 +97,48 @@ export default function Bounty({ params }: any) {
     fetchSubmissions();
   }, [account]);
 
+  
+  // Helper function to calculate the time difference
+function getTimeDifference(date1: any, date2: any) {
+  const diff = date2 - date1;
+  const minutes = Math.floor(diff / (1000 * 60));
+  const hours = Math.floor(diff / (1000 * 60 * 60));
+  const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+
+  if (days > 0) return `${days} days`;
+  if (hours > 0) return `${hours} hours`;
+  if (minutes > 0) return `${minutes} minutes`;
+  return "a few moments";
+}
+
+  //FUNCTION TO DATE CONFIGURE
+  const getBountyStatus = (startDate: Date, endDate: Date, currentDate: Date) => {
+    if (currentDate < startDate) {
+      return {
+        status: `Starting in ${getTimeDifference(currentDate, startDate)}`,
+        color: "text-blue-500",
+        submissionStatus: "Submissions open soon",
+        submissionColor: "text-blue-500",
+      };
+    } else if (currentDate >= startDate && currentDate <= endDate) {
+      return {
+        status: "Live",
+        color: "text-green-500",
+        submissionStatus: "Submissions open",
+        submissionColor: "text-green-500",
+      };
+    } else {
+      return {
+        status: "Ended",
+        color: "text-red-500",
+        submissionStatus: "Submissions closed",
+        submissionColor: "text-red-500",
+      };
+    }
+  };
+
+  const statusInfo = getBountyStatus(new Date(bounty.startAt), new Date(bounty.endAt), new Date());
+
   return (
     <>
       <div className="flex mt-24 min-h-screen justify-start items-center flex-col w-screen">
@@ -103,7 +146,7 @@ export default function Bounty({ params }: any) {
           <div className="w-full flex justify-start items-start flex-row p-4 rounded-lg shadow-md m-1">
             <Image
               src={
-                "https://tse1.mm.bing.net/th?id=OIP.bHrShAEKhWrUzdP3v8a5CQHaHb&pid=Api&P=0&h=180"
+                "https://res.cloudinary.com/dmebegin1/image/upload/v1732737075/qpmyhnoapwgppl0bjd3z.png"
               }
               className="rounded-full"
               width={50}
@@ -142,19 +185,19 @@ export default function Bounty({ params }: any) {
                       d="M11.5 3a9.5 9.5 0 0 1 9.5 9.5a9.5 9.5 0 0 1-9.5 9.5A9.5 9.5 0 0 1 2 12.5A9.5 9.5 0 0 1 11.5 3m0 1A8.5 8.5 0 0 0 3 12.5a8.5 8.5 0 0 0 8.5 8.5a8.5 8.5 0 0 0 8.5-8.5A8.5 8.5 0 0 0 11.5 4M11 7h1v5.42l4.7 2.71l-.5.87l-5.2-3z"
                     />
                   </svg>
-                  <span className="ml-1">Submissions open</span>
+                  <span className={`ml-1 ${statusInfo.submissionColor}`}> {statusInfo.submissionStatus}</span>
                 </div>
                 <div className="ml-2">|</div>
                 <div className="flex ml-3 mt-[2px] justify-start items-center">
-                  <div className="bg-green-500 w-2 h-2 rounded-full pulse-green"></div>
-                  <span className="ml-2">Live</span>
+                 
+                  <span className={statusInfo.color}>{statusInfo.status}</span>
                 </div>
               </div>
             </div>
             <div className="flex justify-end flex-row items-center flex-grow ">
               <Image
                 src={
-                  "https://tse1.mm.bing.net/th?id=OIP.bHrShAEKhWrUzdP3v8a5CQHaHb&pid=Api&P=0&h=180"
+                  "https://res.cloudinary.com/dmebegin1/image/upload/v1732737075/qpmyhnoapwgppl0bjd3z.png"
                 }
                 className="rounded-full"
                 width={20}
@@ -164,7 +207,7 @@ export default function Bounty({ params }: any) {
               <span className="text-lg text-slate-800 ml-4 mr-2">
                 {bounty?.budget}
               </span>
-              <span className="text-slate-400 text-base"> APT</span>
+              <span className="text-slate-400 text-base"> ALGO</span>
             </div>
           </div>
           <div className="flex justify-center items-start flex-row mt-2">
@@ -176,7 +219,7 @@ export default function Bounty({ params }: any) {
                 <div className="flex justify-start items-center gap-2 p-2">
                   <Image
                     src={
-                      "https://tse1.mm.bing.net/th?id=OIP.bHrShAEKhWrUzdP3v8a5CQHaHb&pid=Api&P=0&h=180"
+                      "https://res.cloudinary.com/dmebegin1/image/upload/v1732737075/qpmyhnoapwgppl0bjd3z.png"
                     }
                     className="rounded-full"
                     width={30}
@@ -187,35 +230,27 @@ export default function Bounty({ params }: any) {
                     <span className="text-lg font-bold text-slate-800">
                       {bounty?.budget}
                     </span>
-                    <span className="ml-2">APT</span>
+                    <span className="ml-2">ALGO</span>
                     <span className="text-slate-500 ml-4">Total Prizes</span>
                   </div>
                 </div>
-                {/* <div className="p-2 ml-1">
-                                    <div>
-                                        <span className="text-base text-slate-800">🥇 5000</span>
-                                        <span className="ml-2">APT</span>
-                                    </div>
-                                    <div>
-                                        <span className="text-base text-slate-800">🥈 3000</span>
-                                        <span className="ml-2">APT</span>
-                                    </div>
-                                    <div>
-                                        <span className="text-base text-slate-800">🥉 2000</span>
-                                        <span className="ml-2">APT</span>
-                                    </div>
-                                </div>
-                                <div className="flex justify-between items-start flex-row mt-4">
-                                    <div className="flex justify-center p-2 items-start flex-row w-[49%] bg-[#f3f6fd] rounded-lg">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="#616161" d="M20.172 6.75h-1.861l-4.566 4.564a1.874 1.874 0 1 1-1.06-1.06l4.565-4.565V3.828a.94.94 0 0 1 .275-.664l1.73-1.73a.25.25 0 0 1 .25-.063c.089.026.155.1.173.191l.46 2.301l2.3.46c.09.018.164.084.19.173a.25.25 0 0 1-.062.249l-1.731 1.73a.94.94 0 0 1-.663.275" /><path fill="#616161" d="M2.625 12A9.375 9.375 0 0 0 12 21.375A9.375 9.375 0 0 0 21.375 12c0-.898-.126-1.766-.361-2.587A.75.75 0 0 1 22.455 9c.274.954.42 1.96.42 3c0 6.006-4.869 10.875-10.875 10.875S1.125 18.006 1.125 12S5.994 1.125 12 1.125c1.015-.001 2.024.14 3 .419a.75.75 0 1 1-.413 1.442A9.4 9.4 0 0 0 12 2.625A9.375 9.375 0 0 0 2.625 12" /><path fill="#616161" d="M7.125 12a4.874 4.874 0 1 0 9.717-.569a.748.748 0 0 1 1.047-.798c.251.112.42.351.442.625a6.373 6.373 0 0 1-10.836 5.253a6.376 6.376 0 0 1 5.236-10.844a.75.75 0 1 1-.17 1.49A4.876 4.876 0 0 0 7.125 12" /></svg>
-                                        <span className="text-slate-800 text-lg ml-4 -mt-1">61 Submission</span>
-                                    </div>
-                                    <div className="flex justify-center p-2 items-start flex-row w-[49%] bg-[#f3f6fd] rounded-lg">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 48 48"><g fill="none" stroke="#616161" stroke-linejoin="round" stroke-width="4"><path d="M24 44c11.046 0 20-8.954 20-20S35.046 4 24 4S4 12.954 4 24s8.954 20 20 20Z" /><path stroke-linecap="round" d="M24.008 12v12.01l8.479 8.48" /></g></svg>
-                                        <span className="text-slate-800 text-lg ml-4 -mt-1">11d:02h:34m Remaining</span>
-                                    </div>
-                                </div> */}
-                {/* <button className="w-full bg-slate-800 text-white p-2 rounded-lg mt-4">See submissions</button> */}
+                <div className="flex justify-between items-start flex-row mt-4">
+                  <div className="flex justify-start p-4 items-ceenter flex-col w-[49%] bg-[#f3f6fd] rounded-lg">
+                    <span className="text-sm text-slate-600">
+                      Total Submissions
+                    </span>
+                    <span className="text-slate-800 text-sm font-bold text-center mt-1">
+                      61
+                    </span>
+                  </div>
+                  <div className="flex justify-start p-4 items-center flex-col w-[49%] bg-[#f3f6fd] rounded-lg">
+                    <span className="text-sm text-slate-600">Deadline</span>
+                    <span className="text-slate-800 text-sm font-bold text-center mt-1">
+                      {formatDateToDDMMYYYYHM(bounty?.endAt)}
+                    </span>
+                  </div>
+                </div>
+                
               </div>
             </div>
 

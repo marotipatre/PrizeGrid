@@ -45,7 +45,7 @@ export default function BecomeHunter() {
     if (account === null) {
       toast({
         title: "Wallet connection required.",
-        description: "You need to connect aptos wallet",
+        description: "You need to connect algo wallet",
       });
       return;
     }

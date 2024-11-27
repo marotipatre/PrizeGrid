@@ -31,7 +31,7 @@ const Navbar = () => {
               </a> */}
 
               <Link href="" className="mr-5 font-medium leading-6 text-gray-600 hover:text-gray-900">
-                Swap
+                Get In Touch
               </Link>
               {/* <a href="#" className="mr-5 font-medium leading-6 text-gray-600 hover:text-gray-900">
                 Contibutor

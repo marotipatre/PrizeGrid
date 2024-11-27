@@ -134,7 +134,7 @@ export default function DistributeBounty({ bountyId, winnerList }: any) {
                 {winnerList[0]?.walletAddress}
               </span>
               <input
-                placeholder="APT Amount"
+                placeholder="ALGO Amount"
                 onChange={(e: any) => setAmt1(e.target.value)}
                 type="text"
                 className="text-[14px] w-full p-[6px] rounded-lg transition-all border-[2px] border-slate-300 outline-none focus:border-sky-500 focus:border-[3px]"
@@ -159,7 +159,7 @@ export default function DistributeBounty({ bountyId, winnerList }: any) {
                 {winnerList[1]?.walletAddress}
               </span>
               <input
-                placeholder="APT Amount"
+                placeholder="ALGO Amount"
                 onChange={(e: any) => setAmt2(e.target.value)}
                 type="text"
                 className="text-[14px] w-full p-[6px] rounded-lg transition-all border-[2px] border-slate-300 outline-none focus:border-sky-500 focus:border-[3px]"
@@ -184,7 +184,7 @@ export default function DistributeBounty({ bountyId, winnerList }: any) {
                 {winnerList[2]?.walletAddress}
               </span>
               <input
-                placeholder="APT Amount"
+                placeholder="ALGO Amount"
                 onChange={(e: any) => setAmt3(e.target.value)}
                 type="text"
                 className="text-[14px] w-full p-[6px] rounded-lg transition-all border-[2px] border-slate-300 outline-none focus:border-sky-500 focus:border-[3px]"
