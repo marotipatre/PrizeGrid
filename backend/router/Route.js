@@ -38,7 +38,7 @@ route.get('/get_all_bounties', controller.getAllBounties) // all bouties for das
 
 route.get('/get_all_bouties_count', controller.getAllBountiesCount) // all bouties for dashboard
 
-route.post(`/add_diwali_wish`, controller.addDiwaliWish)
+
 
  
 module.exports = route

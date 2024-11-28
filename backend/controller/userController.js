@@ -3,7 +3,7 @@ const Sponser = require("../model/sponser.js");
 const Hunter = require("../model/hunter.js");
 const Bounty = require("../model/bounty.js");
 const BountySubmission = require("../model/bountySubmission.js");
-const diwali = require("../model/diwali.js");
+
 
 exports.createSponserProfile = async (req, res) => {
   try {
@@ -136,26 +136,6 @@ exports.createBountySubmission = async (req, res) => {
   }
 };
 
-exports.addDiwaliWish = async (req, res) => {
-  try {
-    const { receiverAddress, greeting } = req.body;
-    console.log(
-      receiverAddress,
-      greeting,);
-    
-
-    const diwaliWish = new diwali({
-      receiverAddress, greeting
-    });
-
-    await diwaliWish.save();
-
-    res.status(200).json({ message: "wish sent successfully" });
-  } catch (error) {
-    console.error("error", error);
-    res.status(500).json({ error: "Failed" });
-  }
-};
 
 exports.checkBountySubmitted = async (req, res) => {
   try {

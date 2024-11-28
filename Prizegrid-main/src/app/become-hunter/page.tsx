@@ -3,7 +3,7 @@
 // import { Button, FormControl, FormLabel, Input } from "@chakra-ui/react";
 import Footer from "@/components/_navbar/Footer";
 import Navbar from "@/components/_navbar/Navbar";
-import { useWallet } from "@aptos-labs/wallet-adapter-react";
+import { useWallet } from "@/components/WalletProvider"
 import { useRouter } from "next/navigation";
 // import { useToast } from '@chakra-ui/react'
 import { useState } from "react";
@@ -13,7 +13,7 @@ import { useToast } from "@/components/ui/use-toast";
 const BASE_URL = process.env.NEXT_PUBLIC_GIGSTER_BACKEND_BASE_URL || "";
 
 export default function BecomeHunter() {
-  const { account } = useWallet();
+  const { accountAddress } = useWallet();
   const router = useRouter();
   const { toast } = useToast();
   const [formData, setFormData] = useState<any>({
@@ -30,7 +30,7 @@ export default function BecomeHunter() {
   });
   // const toast = useToast()
   const [loading, setLoading] = useState<Boolean>(false);
-  console.log("account ", account);
+  console.log("account ", accountAddress);
 
   const handleChange = (e: any) => {
     setFormData({
@@ -42,7 +42,7 @@ export default function BecomeHunter() {
   const handleSubmit = async (e: any) => {
     e.preventDefault();
 
-    if (account === null) {
+    if (accountAddress === null) {
       toast({
         title: "Wallet connection required.",
         description: "You need to connect algo wallet",
@@ -52,7 +52,7 @@ export default function BecomeHunter() {
 
     try {
       setLoading(true);
-      formData.walletAddress = account?.address;
+      formData.walletAddress = accountAddress;
       const response = await fetch(`${BASE_URL}/api/create_hunter_profile`, {
         method: "POST",
         headers: {

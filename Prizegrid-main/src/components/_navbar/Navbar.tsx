@@ -1,9 +1,8 @@
 'use client';
 import Link from 'next/link';
 import React from 'react';
-import "@aptos-labs/wallet-adapter-ant-design/dist/index.css";
 import Image from 'next/image';
-import { WalletSelector } from '../WalletSelector';
+import { WalletConnectButton } from '../WalletSelector';
 
 const Navbar = () => {
   return (
@@ -44,7 +43,7 @@ const Navbar = () => {
               </Link> */}
             </nav>
           </div>
-          <WalletSelector  />
+          <WalletConnectButton />
         </div>
       </section>
     </>

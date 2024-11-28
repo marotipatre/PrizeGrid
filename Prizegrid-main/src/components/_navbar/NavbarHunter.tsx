@@ -1,6 +1,5 @@
 "use client";
 import Link from "next/link";
-import "@aptos-labs/wallet-adapter-ant-design/dist/index.css";
 import Image from "next/image";
 // import {
 //   Menu,
@@ -9,7 +8,7 @@ import Image from "next/image";
 //   MenuItem
 // } from '@chakra-ui/react';
 import { usePathname } from "next/navigation";
-import { WalletSelector } from "../WalletSelector";
+import { WalletConnectButton } from '../WalletSelector';
 
 const Navbar = () => {
   const pathname = usePathname();
@@ -75,7 +74,7 @@ const Navbar = () => {
                 <MenuItem>My Submissions</MenuItem>
               </MenuList>
             </Menu> */}
-            <WalletSelector />
+              <WalletConnectButton />
           </div>
         </div>
       </section>

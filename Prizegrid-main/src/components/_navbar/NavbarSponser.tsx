@@ -1,10 +1,8 @@
 "use client";
 import Link from "next/link";
 import React from "react";
-import { WalletSelector } from "@aptos-labs/wallet-adapter-ant-design";
-import "@aptos-labs/wallet-adapter-ant-design/dist/index.css";
 import Image from "next/image";
-import { WalletSelector as ShadcnWalletSelector } from "@/components/WalletSelector";
+import { WalletConnectButton } from '../WalletSelector';
 import { usePathname } from "next/navigation";
 
 const Navbar2 = () => {
@@ -72,7 +70,7 @@ const Navbar2 = () => {
                 style={{ borderRadius: "100px" }}
               />
             </Link>
-            <ShadcnWalletSelector />
+            <WalletConnectButton />
           </div>
         </div>
       </section>

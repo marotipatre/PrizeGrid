@@ -8,15 +8,15 @@ import Loading from "@/components/Loading";
 import { toast } from "@/components/ui/use-toast";
 import { useUser } from "@/context/UserContext";
 import { useBounties, useUserType } from "@/hooks/hooks";
-import { useWallet } from "@aptos-labs/wallet-adapter-react";
+import { useWallet } from "@/components/WalletProvider"
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 
 const AllBountiesPage = () => {
-  const { account } = useWallet();
+  const { accountAddress } = useWallet();
   const router = useRouter();
 
-  const { data: userData } = useUserType(account?.address || "");  
+  const { data: userData } = useUserType(accountAddress || "");  
   const { data: bountiesData, isLoading: bountiesLoading } = useBounties();
 
   useEffect(() => {
@@ -61,7 +61,7 @@ const AllBountiesPage = () => {
             <Bounty 
               bounties={bountiesData}
               userType={userData?.userType || "hunter"}
-              userAddress={account?.address || ""}
+              userAddress={accountAddress || ""}
             />
           </div>
           <div className="flex justify-center items-start flex-col w-[34%]">

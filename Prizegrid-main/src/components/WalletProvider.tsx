@@ -1,52 +1,133 @@
-"use client";
+'use client'
 
-import { AptosWalletAdapterProvider } from "@aptos-labs/wallet-adapter-react";
-// import { BitgetWallet } from "@bitget-wallet/aptos-wallet-adapter";
-// import { MartianWallet } from "@martianwallet/aptos-wallet-adapter";
-// import { MSafeWalletAdapter } from "@msafe/aptos-wallet-adapter";
-// import { OKXWallet } from "@okwallet/aptos-wallet-adapter";
-// import { PontemWallet } from "@pontem/wallet-adapter-plugin";
-// import { TrustWallet } from "@trustwallet/aptos-wallet-adapter";
-// import { FewchaWallet } from "fewcha-plugin-wallet-adapter";
-import { PropsWithChildren } from "react";
-import { Network } from "@aptos-labs/ts-sdk";
-import { useAutoConnect } from "./AutoConnectProvider";
-import { useToast } from "./ui/use-toast";
+import { createContext, useContext, useEffect, useState, ReactNode } from 'react'
+import { initializeWallet } from '../lib/wallet-utils'
+import type { PeraWalletConnect } from '@perawallet/connect'
 
-export const WalletProvider = ({ children }: PropsWithChildren) => {
-  const { autoConnect } = useAutoConnect();
-  const { toast } = useToast();
+type WalletContextType = {
+  peraWallet: PeraWalletConnect | null
+  accountAddress: string | null
+  isConnected: boolean
+  isConnecting: boolean
+  connect: () => Promise<void>
+  disconnect: () => void
+  error: Error | null
+  isInitializing: boolean
+}
 
-//   const wallets = [
-//     new BitgetWallet(),
-//     new FewchaWallet(),
-//     new MartianWallet(),
-//     new MSafeWalletAdapter(),
-//     new PontemWallet(),
-//     new TrustWallet(),
-//     new OKXWallet(),
-//   ];
+const WalletContext = createContext<WalletContextType | undefined>(undefined)
+
+export function WalletProvider({ children }: { children: ReactNode }) {
+  const [peraWallet, setPeraWallet] = useState<PeraWalletConnect | null>(null)
+  const [accountAddress, setAccountAddress] = useState<string | null>(null)
+  const [isConnecting, setIsConnecting] = useState(false)
+  const [isInitializing, setIsInitializing] = useState(true)
+  const [error, setError] = useState<Error | null>(null)
+
+  useEffect(() => {
+    let mounted = true
+
+    const init = async () => {
+      try {
+        setIsInitializing(true)
+        setError(null)
+
+        const wallet = await initializeWallet()
+        
+        if (!mounted) return
+
+        setPeraWallet(wallet)
+
+        try {
+          const accounts = await wallet.reconnectSession()
+          if (mounted && accounts.length) {
+            setAccountAddress(accounts[0])
+          }
+        } catch (reconnectError) {
+          console.warn('Session reconnection failed:', reconnectError)
+          // Don't throw here - just log the warning
+        }
+      } catch (err) {
+        console.error('Wallet initialization failed:', err)
+        if (mounted) {
+          setError(err instanceof Error ? err : new Error('Failed to initialize wallet'))
+        }
+      } finally {
+        if (mounted) {
+          setIsInitializing(false)
+        }
+      }
+    }
+
+    init()
+
+    return () => {
+      mounted = false
+      if (peraWallet) {
+        try {
+          peraWallet.disconnect()
+        } catch (err) {
+          console.error('Error during cleanup:', err)
+        }
+      }
+    }
+  }, [])
+
+  async function connect() {
+    if (!peraWallet) {
+      setError(new Error('Wallet not initialized'))
+      return
+    }
+
+    try {
+      setIsConnecting(true)
+      setError(null)
+      const accounts = await peraWallet.connect()
+      setAccountAddress(accounts[0])
+    } catch (err) {
+      console.error('Connection error:', err)
+      setError(err instanceof Error ? err : new Error('Failed to connect to wallet'))
+    } finally {
+      setIsConnecting(false)
+    }
+  }
+
+  function disconnect() {
+    if (peraWallet) {
+      try {
+        peraWallet.disconnect()
+        setAccountAddress(null)
+        setError(null)
+      } catch (err) {
+        console.error('Disconnect error:', err)
+        setError(err instanceof Error ? err : new Error('Failed to disconnect wallet'))
+      }
+    }
+  }
 
   return (
-    <AptosWalletAdapterProvider
-      autoConnect={autoConnect}
-      dappConfig={{
-        network: Network.TESTNET,
-        aptosConnectDappId: "57fa42a9-29c6-4f1e-939c-4eefa36d9ff5",
-        mizuwallet: {
-          manifestURL:
-            "https://assets.mz.xyz/static/config/mizuwallet-connect-manifest.json",
-        },
-      }}
-      onError={(error) => {
-        toast({
-          variant: "destructive",
-          title: "Error",
-          description: error || "Unknown wallet error",
-        });
+    <WalletContext.Provider
+      value={{
+        peraWallet,
+        accountAddress,
+        isConnected: !!accountAddress,
+        isConnecting,
+        connect,
+        disconnect,
+        error,
+        isInitializing,
       }}
     >
       {children}
-    </AptosWalletAdapterProvider>
-  );
-};
+    </WalletContext.Provider>
+  )
+}
+
+export function useWallet() {
+  const context = useContext(WalletContext)
+  if (context === undefined) {
+    throw new Error('useWallet must be used within a WalletProvider')
+  }
+  return context
+}
+

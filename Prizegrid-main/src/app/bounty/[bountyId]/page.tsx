@@ -33,12 +33,11 @@ import {
 } from "@/components/ui/dialog";
 
 import { useEffect, useRef, useState } from "react";
-import { useWallet } from "@aptos-labs/wallet-adapter-react";
+import { useWallet } from "@/components/WalletProvider"
 import { useRouter } from "next/navigation";
 import { formatDateToDDMMYYYYHM } from "@/components/formatDateToDDMMYYYYHM/formatDateToDDMMYYYYHM";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/components/ui/use-toast";
-import { Network, Provider } from "aptos";
 import { Gift, Loader2, Send } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -53,7 +52,7 @@ const markdownConfig: Options = {
   fence: "`",
 };
 
-const provider = new Provider(Network.MAINNET);
+
 
 const BASE_URL = process.env.NEXT_PUBLIC_GIGSTER_BACKEND_BASE_URL || "";
 
@@ -61,7 +60,7 @@ const MODULE_ADDRESS =
   "0xb4c500b5a0beba1a70f41a2479c86e7d611bfaa381403d00971cef13040fb3d3";
 
 export default function Bounty({ params }: any) {
-  const { account, signAndSubmitTransaction } = useWallet();
+  const { accountAddress } = useWallet();
   const [bounty, setBounty] = useState<any>([]);
   const [isSubmitted, setIsSubmitted] = useState<Boolean>(false);
   const router = useRouter();
@@ -94,7 +93,7 @@ export default function Bounty({ params }: any) {
   const handleSubmit = async (e: any) => {
     e.preventDefault();
 
-    if (account === null) {
+    if (accountAddress === null) {
       toast({
         title: "Wallet connection required.",
         description: "You need to connect algo/pera wallet",
@@ -112,9 +111,9 @@ export default function Bounty({ params }: any) {
     console.log('Form submitted', formData);
 
     try {
-      formData.walletAddress = account?.address;
+      formData.walletAddress = accountAddress;
       const response = await fetch(
-        `${BASE_URL}/api/create_bounty_submission/${bountyId}/${account?.address}`,
+        `${BASE_URL}/api/create_bounty_submission/${bountyId}/${accountAddress}`,
         {
           method: "POST",
           headers: {
@@ -150,7 +149,7 @@ export default function Bounty({ params }: any) {
       }
 
       const response2 = await fetch(
-        `${BASE_URL}/api/checkBountySubmitted/${bountyId}/${account?.address}`
+        `${BASE_URL}/api/checkBountySubmitted/${bountyId}/${accountAddress}`
       );
       if (response2.ok) {
         const data: any = await response2.json();

@@ -1,5 +1,5 @@
 "use client";
-import { useWallet } from "@aptos-labs/wallet-adapter-react";
+import { useWallet } from "@/components/WalletProvider"
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -8,17 +8,17 @@ import { useEffect } from "react";
 
 const Banner = () => {
   const BASE_URL = process.env.NEXT_PUBLIC_GIGSTER_BACKEND_BASE_URL || "";
-  const { account } = useWallet();
+  const { accountAddress } = useWallet();
   // const { userType, setUserType }: any = useUser();
   const route = useRouter();
   console.log(BASE_URL);
 
   const fetchUserType = async () => {
-    if (account === null) return;
+    if (accountAddress === null) return;
 
     try {
       const response = await fetch(
-        `${BASE_URL}/api/find_usertype/${account?.address}`
+        `${BASE_URL}/api/find_usertype/${accountAddress}`
       );
       if (response.ok) {
         const data = await response.json();
@@ -37,7 +37,7 @@ const Banner = () => {
 
   useEffect(() => {
     fetchUserType();
-  }, [account]);
+  }, [accountAddress]);
 
   return (
     <section className="px-2 py-2 bg-white min-h-screen md:px-0 mt-16">

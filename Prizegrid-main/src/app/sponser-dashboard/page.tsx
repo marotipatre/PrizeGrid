@@ -7,31 +7,31 @@ import Navbar2 from "@/components/_navbar/NavbarSponser";
 import Loading from "@/components/Loading";
 import { useUser } from "@/context/UserContext";
 import { useBounties, useBountiesCount, useUserType } from "@/hooks/hooks";
-import { useWallet } from "@aptos-labs/wallet-adapter-react";
+import { useWallet } from "@/components/WalletProvider"
 // import { useToast } from "@chakra-ui/react";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 export default function Dashboard() {
-  const { account } = useWallet();
+  const { accountAddress } = useWallet();
   const router = useRouter();
   // const toast = useToast();
 
-  const { data: userData } = useUserType(account?.address || "");
+  const { data: userData } = useUserType(accountAddress || "");
   const { data: bountiesData, isLoading: bountiesLoading } = useBounties(
-    account?.address || undefined,
+    accountAddress || undefined,
     userData?.userType || undefined
   );
   const { data: bountiesCountData, isLoading: bountiesCountLoading } = useBountiesCount(
-    account?.address || undefined,
+    accountAddress || undefined,
     userData?.userType || undefined
   );
 
   useEffect(() => {
-    if (!account) {
+    if (!accountAddress) {
       router.push("/");
     }
-  }, [account, router]);
+  }, [accountAddress, router]);
 
   useEffect(() => {
     if (userData?.userType === "") {

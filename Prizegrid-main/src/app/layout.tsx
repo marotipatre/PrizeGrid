@@ -4,15 +4,13 @@ import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 // import { Providers } from './providers';
 import './globals.css';
-import { PetraWallet } from "petra-plugin-wallet-adapter";
-import { ThemeProvider } from "@/components/ThemeProvider";
 import { WalletProvider } from "@/components/WalletProvider";
 import { AutoConnectProvider } from "@/components/AutoConnectProvider";
 import { Toaster } from '@/components/ui/toaster';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 
-const wallets = [new PetraWallet()];
+
 const queryClient = new QueryClient()
 
 
@@ -40,14 +38,14 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         > */}
-          <AutoConnectProvider>
+         
             <WalletProvider>
               {/* <Providers> */}
                 <div className='bg-white overflow-x-hidden'>{children}</div>
                 <Toaster />
               {/* </Providers> */}
             </WalletProvider>
-          </AutoConnectProvider>
+         
           <ReactQueryDevtools initialIsOpen={false} />
         {/* </ThemeProvider> */}
         </QueryClientProvider>
