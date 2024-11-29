@@ -4,8 +4,7 @@ import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 // import { Providers } from './providers';
 import './globals.css';
-import { WalletProvider } from "@/components/WalletProvider";
-import { AutoConnectProvider } from "@/components/AutoConnectProvider";
+import { Providers } from "@/components/WalletProvider";
 import { Toaster } from '@/components/ui/toaster';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
@@ -32,19 +31,11 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
       <QueryClientProvider client={queryClient}>
-        {/* <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
-        > */}
-         
-            <WalletProvider>
-              {/* <Providers> */}
+         <Providers>
+             
                 <div className='bg-white overflow-x-hidden'>{children}</div>
                 <Toaster />
-              {/* </Providers> */}
-            </WalletProvider>
+          </Providers>
          
           <ReactQueryDevtools initialIsOpen={false} />
         {/* </ThemeProvider> */}

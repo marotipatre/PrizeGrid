@@ -6,9 +6,9 @@ import { formatDateToDDMMYYYYHM } from "@/components/formatDateToDDMMYYYYHM/form
 import ProjectList from "@/components/_projects/ProjectList";
 import { useEffect, useState } from "react";
 import { useUser } from "@/context/UserContext";
-import { useWallet } from "@/components/WalletProvider"
-import { useRouter } from "next/navigation";
 
+import { useRouter } from "next/navigation";
+import { useWallet } from '@txnlab/use-wallet-react'
 import DistributeBounty from "@/components/_bounty/DistributeBounty";
 import WinnerList from "@/components/winner_list/WinnerList";
 
@@ -34,12 +34,12 @@ export default function Bounty({ params }: any) {
   const [projects, setProjects] = useState<any>([]);
   const [winnerList, setWinnerList] = useState<any>([]);
   const { bountyId } = params;
-  const { accountAddress } = useWallet();
+  const { activeAddress } = useWallet();
 
   const BASE_URL = process.env.NEXT_PUBLIC_GIGSTER_BACKEND_BASE_URL || "";
 
   const fetchSubmissions = async () => {
-    if (accountAddress === null) router.push("/");
+    if (activeAddress === null) router.push("/");
 
     try {
       const response = await fetch(
@@ -91,7 +91,7 @@ export default function Bounty({ params }: any) {
 
   useEffect(() => {
     fetchSubmissions();
-  }, [accountAddress]);
+  }, [activeAddress]);
 
   
   // Helper function to calculate the time difference

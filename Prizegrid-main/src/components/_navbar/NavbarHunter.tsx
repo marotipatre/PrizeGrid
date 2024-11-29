@@ -8,7 +8,7 @@ import Image from "next/image";
 //   MenuItem
 // } from '@chakra-ui/react';
 import { usePathname } from "next/navigation";
-import { WalletConnectButton } from '../WalletSelector';
+import { WalletMenu } from "../../app/WalletSelector";
 
 const Navbar = () => {
   const pathname = usePathname();
@@ -74,7 +74,7 @@ const Navbar = () => {
                 <MenuItem>My Submissions</MenuItem>
               </MenuList>
             </Menu> */}
-              <WalletConnectButton />
+            <WalletMenu />
           </div>
         </div>
       </section>

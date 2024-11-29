@@ -5,7 +5,7 @@ import ReactMarkdown from "react-markdown";
 import remarkParse from "remark-parse";
 import remarkStringify, { Options } from "remark-stringify";
 import remarkGfm from "remark-gfm"; // To handle GFM features like lists
-import { useWallet } from "@/components/WalletProvider"
+import { useWallet } from '@txnlab/use-wallet-react'
 import { useRouter } from "next/navigation";
 import { useToast } from "@/components/ui/use-toast";
 import rehypeRaw from "rehype-raw";
@@ -22,7 +22,7 @@ const markdownConfig: Options = {
 };
 
 export default function CreateGig() {
-  const { accountAddress } = useWallet();
+  const { activeAddress } = useWallet();
   const router = useRouter();
   const { toast } = useToast();
   const [formData, setFormData] = useState<any>({
@@ -52,7 +52,7 @@ export default function CreateGig() {
   const handleSubmit = async (e: any) => {
     e.preventDefault();
 
-    if (accountAddress === null) {
+    if (activeAddress === null) {
       toast({
         title: "Wallet connection required.",
         description: "You need to connect algo/pera wallet",
@@ -84,7 +84,7 @@ export default function CreateGig() {
     }
 
     try {
-      formData.walletAddress = accountAddress;
+      formData.walletAddress = activeAddress;
       console.log('Form Data before submission:', formData); // Log form data before submission
       const response = await fetch(`${BASE_URL}/api/create_bounty`, {
         method: "POST",

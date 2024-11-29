@@ -1,4 +1,7 @@
-## backend repo : https://github.com/phovious-14/gigster-backend
+## backend repo : 
+
+Walletconnect ProjectID : 9606ddd4e95e01cd41486cdaefb87928
+Magic API key : pk_live_E8C27696B36E9AF8
 
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 

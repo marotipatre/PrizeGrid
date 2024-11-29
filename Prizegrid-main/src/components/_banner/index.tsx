@@ -1,5 +1,5 @@
 "use client";
-import { useWallet } from "@/components/WalletProvider"
+import { useWallet } from '@txnlab/use-wallet-react'
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -8,17 +8,17 @@ import { useEffect } from "react";
 
 const Banner = () => {
   const BASE_URL = process.env.NEXT_PUBLIC_GIGSTER_BACKEND_BASE_URL || "";
-  const { accountAddress } = useWallet();
+  const { activeAddress } = useWallet();
   // const { userType, setUserType }: any = useUser();
   const route = useRouter();
   console.log(BASE_URL);
 
   const fetchUserType = async () => {
-    if (accountAddress === null) return;
+    if (activeAddress === null) return;
 
     try {
       const response = await fetch(
-        `${BASE_URL}/api/find_usertype/${accountAddress}`
+        `${BASE_URL}/api/find_usertype/${activeAddress}`
       );
       if (response.ok) {
         const data = await response.json();
@@ -37,7 +37,7 @@ const Banner = () => {
 
   useEffect(() => {
     fetchUserType();
-  }, [accountAddress]);
+  }, [activeAddress]);
 
   return (
     <section className="px-2 py-2 bg-white min-h-screen md:px-0 mt-16">

@@ -33,7 +33,7 @@ import {
 } from "@/components/ui/dialog";
 
 import { useEffect, useRef, useState } from "react";
-import { useWallet } from "@/components/WalletProvider"
+import { useWallet } from '@txnlab/use-wallet-react'
 import { useRouter } from "next/navigation";
 import { formatDateToDDMMYYYYHM } from "@/components/formatDateToDDMMYYYYHM/formatDateToDDMMYYYYHM";
 import { Button } from "@/components/ui/button";
@@ -60,7 +60,7 @@ const MODULE_ADDRESS =
   "0xb4c500b5a0beba1a70f41a2479c86e7d611bfaa381403d00971cef13040fb3d3";
 
 export default function Bounty({ params }: any) {
-  const { accountAddress } = useWallet();
+  const { activeAddress } = useWallet();
   const [bounty, setBounty] = useState<any>([]);
   const [isSubmitted, setIsSubmitted] = useState<Boolean>(false);
   const router = useRouter();
@@ -93,7 +93,7 @@ export default function Bounty({ params }: any) {
   const handleSubmit = async (e: any) => {
     e.preventDefault();
 
-    if (accountAddress === null) {
+    if (activeAddress === null) {
       toast({
         title: "Wallet connection required.",
         description: "You need to connect algo/pera wallet",
@@ -111,9 +111,9 @@ export default function Bounty({ params }: any) {
     console.log('Form submitted', formData);
 
     try {
-      formData.walletAddress = accountAddress;
+      formData.walletAddress = activeAddress;
       const response = await fetch(
-        `${BASE_URL}/api/create_bounty_submission/${bountyId}/${accountAddress}`,
+        `${BASE_URL}/api/create_bounty_submission/${bountyId}/${activeAddress}`,
         {
           method: "POST",
           headers: {
@@ -149,7 +149,7 @@ export default function Bounty({ params }: any) {
       }
 
       const response2 = await fetch(
-        `${BASE_URL}/api/checkBountySubmitted/${bountyId}/${accountAddress}`
+        `${BASE_URL}/api/checkBountySubmitted/${bountyId}/${activeAddress}`
       );
       if (response2.ok) {
         const data: any = await response2.json();

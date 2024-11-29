@@ -3,7 +3,7 @@
 import { useState } from "react";
 import ProjectCard from "./project-card";
 import { useRouter } from "next/navigation";
-import { useWallet } from "@/components/WalletProvider"
+import { useWallet } from '@txnlab/use-wallet-react'
 import { useToast } from "../ui/use-toast";
 
 const BASE_URL = process.env.NEXT_PUBLIC_GIGSTER_BACKEND_BASE_URL || "";
@@ -11,14 +11,14 @@ const BASE_URL = process.env.NEXT_PUBLIC_GIGSTER_BACKEND_BASE_URL || "";
 const WinnerList = ({ bountyId, winners, projects, handleRepick }: any) => {
   const { toast } = useToast();
   const router = useRouter();
-  const {  accountAddress } = useWallet();
+  const {  activeAddress } = useWallet();
 
   const handleAnnounce = async () => {
     try {
       console.log(projects);
 
       const response = await fetch(
-        `${BASE_URL}/api/add_winners/${bountyId}/${accountAddress}`,
+        `${BASE_URL}/api/add_winners/${bountyId}/${activeAddress}`,
         {
           method: "POST",
           headers: {

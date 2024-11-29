@@ -2,7 +2,7 @@
 import Link from "next/link";
 import React from "react";
 import Image from "next/image";
-import { WalletConnectButton } from '../WalletSelector';
+import { WalletMenu } from "../../app/WalletSelector";
 import { usePathname } from "next/navigation";
 
 const Navbar2 = () => {
@@ -70,7 +70,7 @@ const Navbar2 = () => {
                 style={{ borderRadius: "100px" }}
               />
             </Link>
-            <WalletConnectButton />
+            <WalletMenu />
           </div>
         </div>
       </section>
