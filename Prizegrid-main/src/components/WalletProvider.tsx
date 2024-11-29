@@ -13,6 +13,8 @@ type WalletContextType = {
   disconnect: () => void
   error: Error | null
   isInitializing: boolean
+  network: string
+  provider: any
 }
 
 const WalletContext = createContext<WalletContextType | undefined>(undefined)
@@ -23,6 +25,8 @@ export function WalletProvider({ children }: { children: ReactNode }) {
   const [isConnecting, setIsConnecting] = useState(false)
   const [isInitializing, setIsInitializing] = useState(true)
   const [error, setError] = useState<Error | null>(null)
+  const [network, setNetwork] = useState('testnet')
+  const [provider, setProvider] = useState<any>(null)
 
   useEffect(() => {
     let mounted = true
@@ -116,6 +120,8 @@ export function WalletProvider({ children }: { children: ReactNode }) {
         disconnect,
         error,
         isInitializing,
+        network, 
+        provider,
       }}
     >
       {children}

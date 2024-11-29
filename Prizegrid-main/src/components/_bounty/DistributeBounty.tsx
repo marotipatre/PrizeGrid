@@ -1,19 +1,16 @@
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { useUser } from "@/context/UserContext";
-import {
-  InputTransactionData,
-  useWallet,
-} from "@aptos-labs/wallet-adapter-react";
+import algosdk from 'algosdk'
+import { useWallet } from '../WalletProvider'
 import { useRouter } from "next/navigation";
-import { Network, Provider } from "aptos";
-import "@aptos-labs/wallet-adapter-ant-design/dist/index.css";
 import { useToast } from "../ui/use-toast";
 
-export const provider = new Provider(Network.TESTNET);
+
 
 export default function DistributeBounty({ bountyId, winnerList }: any) {
-  const { account, signAndSubmitTransaction } = useWallet();
+  const { peraWallet, accountAddress, connect, isConnected, network, provider } = useWallet();
+  const [status, setStatus] = useState('')
   const [amt1, setAmt1] = useState<any>("");
   const [amt2, setAmt2] = useState<any>("");
   const [amt3, setAmt3] = useState<any>("");
@@ -23,66 +20,90 @@ export default function DistributeBounty({ bountyId, winnerList }: any) {
   const [transactionInProgress, setTransactionInProgress] =
     useState<boolean>(false);
 
-  const APTOS_COIN = "0x1::aptos_coin::AptosCoin";
+  
 
   const BASE_URL = process.env.NEXT_PUBLIC_GIGSTER_BACKEND_BASE_URL || "";
+  
 
-  const aptsend = async () => {
-    if (!account) return router.push("/");
-    setTransactionInProgress(true);
-
+  const distributeBounty = async () => {
     try {
-      const recipients = winnerList.map((winner: any) => winner.walletAddress);
-
-      const amounts = [
-        (parseFloat(amt1) * 100_000_000).toString(),
-        (parseFloat(amt2) * 100_000_000).toString(),
-        (parseFloat(amt3) * 100_000_000).toString(),
-      ];
-      console.log(amounts);
-
-      // build a transaction payload to be submited
-      const payload: InputTransactionData = {
-        data: {
-          function: "0x1::aptos_account::batch_transfer",
-          typeArguments: [],
-          functionArguments: [recipients, amounts],
-        },
-      };
-
-      // sign and submit transaction to chain
-      const response = await signAndSubmitTransaction(payload);
-      // wait for transaction
-      provider.waitForTransaction(response.hash).then(async () => {
-        const response2 = await fetch(
-          `${BASE_URL}/api/add_reward_distribution/${bountyId}`,
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-          }
-        );
-        if (response2.ok) {
-          toast({
-            title: "All transactions have been successfully sent! ✔️",
-          });
-        }
-      })
-      .catch((e) => {
-        toast({
-          title: "Payment failed ❌",
-        });
-        console.log(e);        
-      })
-
-      // await fetchAccountBalance();
-
+      // Ensure wallet is connected
+      if (!isConnected) {
+        await connect();
+      }
+  
+      // Validate connection
+      if (!accountAddress) {
+        throw new Error("Wallet not connected");
+      }
+  
+      // Hardcoded test recipient (replace with actual test address)
+      const TEST_RECIPIENT_ADDRESS = 'RK6K3SMBBNVUH3CZIQNHB4EEDOQSLZHYBLJPSDSBYIQN75RU5VUVWQXGVA';
       
-    } catch (error: any) {
-      console.log(error);
-    } finally {
-      setTransactionInProgress(false);
+      // Fixed test amount (1 ALGO)
+      const amount = 1_000_000; // 1 ALGO in microalgos
+  
+      const algodClient = new algosdk.Algodv2(
+        '',
+        'https://testnet-api.algonode.cloud',
+        443
+      );
+  
+      const suggestedParams = await algodClient.getTransactionParams().do();
+      const ptxn = algosdk.makePaymentTxnWithSuggestedParamsFromObject({
+        sender: accountAddress,
+        suggestedParams,
+        receiver: TEST_RECIPIENT_ADDRESS,
+        amount: 10000,
+        note: new Uint8Array(Buffer.from('hello world')),
+        });
+      // Prepare signer payload
+      const signerPayload = {
+        txn: Buffer.from(algosdk.encodeUnsignedTransaction(ptxn)).toString('base64')
+      };
+  
+      // Sign the transaction using Pera Wallet
+      if (!peraWallet) {
+        throw new Error("Pera Wallet is not available");
+      }
+      const signedTxns = await peraWallet.signTransaction([{ ptxn: signerPayload.txn, signers: [accountAddress] }]);
+  
+      // Decode the signed transaction
+      const decodedSignedTxn = signedTxns.map(
+        (signedTxn) => Buffer.from(signedTxn, 'base64')
+      );
+  
+      // Send the signed transaction
+      const txResponse = await algodClient.sendRawTransaction(decodedSignedTxn).do();
+      const txId = txResponse.txId;
+  
+      // Wait for transaction confirmation
+      const confirmedTxn = await algosdk.waitForConfirmation(algodClient, txId, 4);
+  
+      // Update UI and show success toast
+      setStatus(`Transaction successful with ID: ${txId}`);
+      setRewardStatus(true);
+  
+      toast({
+        title: "Test Bounty Distributed",
+        description: `Successfully sent ${amount / 1_000_000} ALGO to test address`
+      });
+  
+    } catch (error) {
+      // Error handling
+      console.error('Bounty distribution error:', error);
+      
+      const errorMessage = error instanceof Error 
+        ? error.message 
+        : 'An unknown error occurred during bounty distribution';
+  
+      setStatus(errorMessage);
+      
+      toast({
+        title: "Distribution Failed",
+        description: errorMessage,
+        variant: "destructive"
+      });
     }
   };
 
@@ -195,7 +216,7 @@ export default function DistributeBounty({ bountyId, winnerList }: any) {
 
           <button
             className="relative rounded-3xl cursor-pointer py-4 w-[100%]"
-            onClick={aptsend}
+            onClick={distributeBounty}
           >
             <div className="flex items-center justify-center bg-slate-800  rounded-lg p-2">
               <h3 className="flex cursor-pointer gap-2 items-center text-whitr text-center text-sm font-medium">
