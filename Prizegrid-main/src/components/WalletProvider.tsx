@@ -7,10 +7,10 @@ const walletManager = new WalletManager({
     // WalletId.DEFLY,
     // WalletId.EXODUS,
     WalletId.PERA,
-    // {
-    //   id: WalletId.WALLETCONNECT,
-    //   options: { projectId: '9606ddd4e95e01cd41486cdaefb87928' }
-    // },
+  //  {
+  //     id: WalletId.WALLETCONNECT,
+  //     options: { projectId: '9606ddd4e95e01cd41486cdaefb87928' }
+  //   },
     // {
     //   id: WalletId.BIATEC,
     //   options: { projectId: 'fcfde0713d43baa0d23be0773c80a72b' }

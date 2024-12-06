@@ -83,7 +83,7 @@ const Banner = () => {
                   href="/become-sponser"
                   className="flex items-center w-full px-6 py-3 mb-3 text-lg text-white bg-black  bg-gradient-to-r from-black via-black to-blue-900 rounded-md sm:mb-0 hover:bg-indigo-700 sm:w-auto"
                 >
-                  Become Sponsor
+                  Host Project
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     className="w-5 h-5 ml-1"
@@ -102,7 +102,7 @@ const Banner = () => {
                   href="/become-hunter"
                   className="flex items-center w-full px-6 py-3 mb-3 text-lg text-white bg-black  bg-gradient-to-l from-black via-black to-blue-900 rounded-md sm:mb-0 hover:bg-indigo-700 sm:w-auto"
                 >
-                  Become Hunter
+                  Explore Bounties
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     className="w-5 h-5 ml-1"

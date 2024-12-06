@@ -57,7 +57,7 @@ export function WalletMenu() {
             </button>
             {wallet.isConnected && (
             <div className="ml-4 p-2 bg-gray-100 rounded-lg shadow-md text-sm text-gray-600 flex items-center w-48">
-              Bal: {balances[wallet.id] !== undefined ? `${balances[wallet.id]} Algos` : 'Loading...'}
+              Bal: {balances[wallet.id] !== undefined ? `${balances[wallet.id]} Algo Tokens` : 'Loading...'}
             </div>
           )}
           </div>
