@@ -41,12 +41,7 @@ const Banner = () => {
 
   return (
     <section className="px-2 py-2 bg-white min-h-screen md:px-0 mt-16">
-      {/* <div className='w-[400px] h-[400px] absolute top-[150px] -left-[200px] bg-slate-900 rotate-45 flex justify-end items-center flex-row'>
-        <Image src={'https://res.cloudinary.com/dm6aa7jlg/image/upload/v1724917106/white_gigster_logo_bg_rm_odpfxf.png'} className='-rotate-45 -mt-[180px] mr-12' alt="" width={140} height={140} />
-      </div>
-      <div className='w-[400px] h-[400px] absolute top-[150px] -right-[200px] bg-slate-900 rotate-45 flex justify-start items-center flex-row'>
-        <Image src={'https://res.cloudinary.com/dm6aa7jlg/image/upload/v1724916905/White_MoveClub_bg_rm_fgm34e.png'} className='-rotate-45 mt-32 ml-12' alt="" width={120} height={120} />
-      </div> */}
+   
       <div className="container items-center max-w-6xl px-8 mx-auto xl:px-5">
         <div className="flex flex-wrap justify-center items-center sm:-mx-3">
           <div className="w-full md:w-1/2 md:px-3">

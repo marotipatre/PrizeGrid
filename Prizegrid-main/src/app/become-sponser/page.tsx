@@ -72,7 +72,7 @@ export default function BecomeSponser() {
       <div className="w-full h-[85vh] mt-24 flex justify-center items-center">
         <div className="w-[600px] flex justify-center items-center flex-col rounded-xl">
           <span className="text-slate-800 text-xl font-bold text-center p-2">
-            Welcome to Move club
+            Welcome to Prizegrid
           </span>
           <form
             onSubmit={handleSubmit}
