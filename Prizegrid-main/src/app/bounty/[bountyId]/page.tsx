@@ -273,7 +273,7 @@ function getTimeDifference(date1: any, date2: any) {
             <div className="flex justify-end flex-row items-center flex-grow ">
               <Image
                 src={
-                  "https://tse1.mm.bing.net/th?id=OIP.bHrShAEKhWrUzdP3v8a5CQHaHb&pid=Api&P=0&h=180"
+                  "https://res.cloudinary.com/dmebegin1/image/upload/v1732737075/qpmyhnoapwgppl0bjd3z.png"
                 }
                 className="rounded-full"
                 width={20}
