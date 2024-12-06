@@ -33,7 +33,7 @@ const WinnerList = ({ bountyId, winners, projects, handleRepick }: any) => {
       );
       if (response.ok) {
         toast({
-          title: "You have announce winners 🎉",
+          title: "You have announced winners 🎉",
         });
         setTimeout(() => router.push("/bounty"), 2000);
       } else {
