@@ -2,8 +2,8 @@
 
 import React, { useState , useEffect } from "react";
 import { useWallet, type Wallet } from "@txnlab/use-wallet-react";
-import { Modal } from "../components/Modal";
-import algosdk from "algosdk";
+import { Modal } from "@/app/Modal";
+import { Button } from "@/components/ui/button"
 
 export function WalletMenu() {
   const {
@@ -15,54 +15,87 @@ export function WalletMenu() {
     wallets,
   } = useWallet();
 
-  const [isSending, setIsSending] = React.useState(false);
+  // const [isSending, setIsSending] = React.useState(false);
   const [isConnected, setIsConnected] = useState(false);
-  const [balances, setBalances] = useState<{ [key: string]: number }>({});
+  const [isModalOpen, setIsModalOpen] = useState(false)
+  const [balance, setBalance] = useState<number | null>(null)
 
-  const handleButtonClick = (wallet: Wallet) => {
-    if (wallet.isConnected) {
-      wallet.disconnect();
-    } else {
-      wallet.connect();
+  const handleConnect = () => {
+    setIsModalOpen(true)
+  }
+
+  const handleDisconnect = () => {
+    const activeWallet = wallets.find(wallet => wallet.isConnected)
+    if (activeWallet) {
+      activeWallet.disconnect()
     }
-  };
+  }
+
 
   useEffect(() => {
-    const fetchBalances = async () => {
-      const newBalances: { [key: string]: number } = {};
-      for (const wallet of wallets) {
-        if (wallet.isConnected) {
-          const accountInfo = await algodClient.accountInformation(wallet.accounts[0].address).do();
-          newBalances[wallet.id] = accountInfo.amount / 1_000_000; // Convert microAlgos to Algos
-        }
+    const fetchBalance = async () => {
+      if (activeAddress) {
+        const accountInfo = await algodClient.accountInformation(activeAddress).do()
+        setBalance(accountInfo.amount / 1_000_000) // Convert microAlgos to Algos
+      } else {
+        setBalance(null)
       }
-      setBalances(newBalances);
-    };
-    fetchBalances();
-  }, [wallets, algodClient]);
+    }
+    fetchBalance()
+  }, [activeAddress, algodClient])
+
 
 
 
   return (
-    <div>
-      {wallets.map((wallet) => (
-        <div key={wallet.id} className="flex items-center justify-between mb-4">
-          
-            <button
-              type="button"
-              onClick={() => handleButtonClick(wallet)}
-              className="bg-black text-white rounded-lg border-2 border-transparent hover:border-blue-500 transition duration-300 px-4 py-2 flex items-center justify-center font-bold"
-            >
-              {wallet.isConnected ? "Disconnect" : "Connect"}
-            </button>
-            {wallet.isConnected && (
-            <div className="ml-4 p-2 bg-gray-100 rounded-lg shadow-md text-sm text-gray-600 flex items-center w-48">
-              Bal: {balances[wallet.id] !== undefined ? `${balances[wallet.id]} Algo Tokens` : 'Loading...'}
-            </div>
-          )}
+    <>
+      {activeAddress ? (
+        <div className="flex items-center space-x-4">
+          <Button onClick={handleDisconnect} variant="outline">
+            Disconnect
+          </Button>
+          <div className="text-sm">
+            Balance: {balance !== null ? `${balance.toFixed(2)} Algo` : 'Loading...'}
           </div>
-        
-      ))}
+        </div>
+      ) : (
+        <Button onClick={handleConnect}>Connect Wallet</Button>
+      )}
+
+      <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
+        <WalletList onClose={() => setIsModalOpen(false)} />
+      </Modal>
+    </>
+  )
+}
+
+function WalletList({ onClose }: { onClose: () => void }) {
+  const { wallets } = useWallet()
+
+  const handleConnect = async (wallet: Wallet) => {
+    await wallet.connect()
+    onClose()
+  }
+
+  return (
+    <div className="p-2">
+      <h2 className="text-lg font-bold mb-4 text-center">Connect Your Wallet</h2>
+      <div className="space-y-2">
+        {wallets.map((wallet) => (
+          <div key={wallet.id} className="w-full mb-2 flex justify-center">
+          <Button
+            key={wallet.id}
+            onClick={() => handleConnect(wallet)}
+            className="w-[50%] justify-center"
+          >
+            {wallet.metadata.name}
+            <span className="flex-1" />
+            <img src={wallet.metadata.icon} alt="wallet icon" className="w-6 h-6 mr-2" />
+            
+          </Button>
+          </div>
+        ))}
+      </div>
     </div>
-  );
+  )
 }
