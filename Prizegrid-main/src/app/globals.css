@@ -69,6 +69,11 @@ body {
   background:"white"
 }
 
+.modal-open .main-content {
+  filter: blur(5px);
+  transition: filter 0.3s ease;
+}
+
 /* HTML: <div class="loader"></div> */
 .loading {
   width: 50px;

@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react"
+import React , { useEffect }  from "react"
 import { Dialog, DialogContent } from "@/components/ui/dialog"
 
 interface ModalProps {
@@ -10,6 +10,14 @@ interface ModalProps {
 }
 
 export function Modal({ isOpen, onClose, children }: ModalProps) {
+    useEffect(() => {
+        if (isOpen) {
+          document.body.classList.add("modal-open");
+        } else {
+          document.body.classList.remove("modal-open");
+        }
+      }, [isOpen]);
+
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent className="max-w-lg" >{children}</DialogContent>

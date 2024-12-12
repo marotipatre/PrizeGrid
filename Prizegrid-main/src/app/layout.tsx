@@ -1,19 +1,17 @@
-"use client"
+"use client";
 
-import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
+import type { Metadata } from "next";
+import { Inter } from "next/font/google";
 // import { Providers } from './providers';
-import './globals.css';
+import "./globals.css";
 import { Providers } from "@/components/WalletProvider";
-import { Toaster } from '@/components/ui/toaster';
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
-import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
+import { Toaster } from "@/components/ui/toaster";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 
+const queryClient = new QueryClient();
 
-const queryClient = new QueryClient()
-
-
-const inter = Inter({ subsets: ['latin'] });
+const inter = Inter({ subsets: ["latin"] });
 
 // export const metadata: Metadata = {
 //   title: 'GitFund: Eth Denver 2024',
@@ -26,22 +24,21 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-
   return (
     <html lang="en">
       <body className={inter.className}>
-      <QueryClientProvider client={queryClient}>
-         <Providers>
-             
-                <div className='bg-white overflow-x-hidden'>{children}</div>
-                <Toaster />
+        <QueryClientProvider client={queryClient}>
+          <Providers>
+            <div className="bg-white overflow-x-hidden main-content">
+              {children}
+            </div>
+            <Toaster />
           </Providers>
-         
+
           <ReactQueryDevtools initialIsOpen={false} />
-        {/* </ThemeProvider> */}
+          {/* </ThemeProvider> */}
         </QueryClientProvider>
       </body>
     </html>
   );
-  
 }
