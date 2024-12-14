@@ -93,12 +93,13 @@ export default function FeaturedGigs({ cardData }: FeaturedGigsProps) {
            pauseOnClick={true}
            delay={0}
            play={true}
-           direction="left">
+           direction="left"
+           ref={scrollContainerRef}>
       <div
         className="relative w-full h-[500px] flex items-center overflow-hidden"
        
       >
-        <div className="flex" style={{ width: "200%" }}  ref={scrollContainerRef}>
+        <div className="flex" style={{ width: "200%" }} >
          
             {cardData.map((data, index) => (
               <AnimatedCard key={index} data={data} className="w-64 flex-shrink-0 mx-4" />
