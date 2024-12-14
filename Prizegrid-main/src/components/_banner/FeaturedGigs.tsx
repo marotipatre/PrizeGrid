@@ -94,10 +94,10 @@ export default function FeaturedGigs({ cardData }: FeaturedGigsProps) {
            delay={0}
            play={true}
            direction="left"
-           ref={scrollContainerRef}>
+           >
       <div
         className="relative w-full h-[500px] flex items-center overflow-hidden"
-       
+        ref={scrollContainerRef}
       >
         <div className="flex" style={{ width: "200%" }} >
          
