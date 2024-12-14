@@ -1,8 +1,8 @@
 "use client";
 
 import { AnimatedCard } from "./animated-card";
-import { HorizontalScroll } from "./horizontal-scroll";
 import { useEffect, useRef, useState } from "react";
+import Marquee from "react-fast-marquee";
 
 interface CardData {
   id: number;
@@ -24,21 +24,6 @@ export default function FeaturedGigs({ cardData }: FeaturedGigsProps) {
   useEffect(() => {
     const scrollContainer = scrollContainerRef.current;
     if (!scrollContainer) return;
-
-    let scrollInterval: NodeJS.Timeout;
-
-    const startScrolling = () => {
-      scrollInterval = setInterval(() => {
-        if (!isDragging) {
-          scrollContainer.scrollLeft += 1;
-          if (scrollContainer.scrollLeft >= scrollContainer.scrollWidth / 2) {
-            scrollContainer.scrollLeft = 0;
-          }
-        }
-      }, 10);
-    };
-
-    startScrolling();
 
     const handleMouseDown = (e: MouseEvent) => {
       setIsDragging(true);
@@ -95,28 +80,33 @@ export default function FeaturedGigs({ cardData }: FeaturedGigsProps) {
       scrollContainer.removeEventListener("touchstart", handleTouchStart);
       scrollContainer.removeEventListener("touchend", handleTouchEnd);
       scrollContainer.removeEventListener("touchmove", handleTouchMove);
-      clearInterval(scrollInterval);
     };
   }, [isDragging, startX, scrollLeft]);
 
   return (
     <div className="bg-white flex flex-col items-center justify-start p-0 m-0 overflow-visible">
       <h1 className="text-4xl font-bold mb-8 text-gray-800">Trending Bounties</h1>
+      <Marquee
+           gradient={false}
+           speed={80}
+           pauseOnHover={true}
+           pauseOnClick={true}
+           delay={0}
+           play={true}
+           direction="left">
       <div
         className="relative w-full h-[500px] flex items-center overflow-hidden"
-        ref={scrollContainerRef}
+       
       >
-        <div className="flex" style={{ width: "200%" }}>
-          <HorizontalScroll>
+        <div className="flex" style={{ width: "200%" }}  ref={scrollContainerRef}>
+         
             {cardData.map((data, index) => (
               <AnimatedCard key={index} data={data} className="w-64 flex-shrink-0 mx-4" />
             ))}
-            {cardData.map((data, index) => (
-              <AnimatedCard key={index + cardData.length} data={data} className="w-64 flex-shrink-0 mx-4" />
-            ))}
-          </HorizontalScroll>
+         
         </div>
       </div>
+      </Marquee>
     </div>
   );
 }
